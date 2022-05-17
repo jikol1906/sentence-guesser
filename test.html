@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 4rem 2rem;
+        background:rgb(161, 161, 161);
+        font-family: sans-serif;
+      }
+      .character-input {
+        background: transparent;
+        width: 1.8ch;
+        padding: 5px 0;
+        text-align: center;
+        font-size: 3rem;
+        border: 0;
+        border-bottom: 2px solid black;
+        outline: none;
+      }
+
+      .top-button {
+        font-family: inherit;
+        font-size: 2rem;
+      }
+
+      .top-buttons-container {
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100%;
+        padding:0.5rem;
+      }
+
+      .wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: auto;
+        padding:4rem 0;
+        gap: 2rem;
+      }
+      
+      .flex-wrapper {
+        display: flex;
+      }
+
+      .word-wrapper {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      #sentence {
+        background: transparent;
+        border:none;
+        text-align: center;
+        border-bottom: 2px solid black;
+        font-size: 2rem;
+        outline:none;
+        resize: none;
+      }
+
+      #result {
+        font-size: 3rem;
+        display: none;
+        text-align: center;
+      }
+
+      .textarea-wrapper {
+        display: flex;
+        
+        flex-direction: column;
+      }
+      #revealresult {
+        display:none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-buttons-container">
+      <button class="top-button" onclick="checkWords()">Check</button>
+      <button class="top-button" onclick="revealLetter()">Reveal Letter</button>
+    </div>
+    <div class="textarea-wrapper">
+      <textarea id="sentence" id="" cols="30" placeholder="Type sentence..." oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+      <div style="text-align: center">
+        <button id="translateButton" style="align-self: center; margin-top:1rem;">Translate</button>
+        <button id="trynew" style="align-self: center; margin-top:1rem;">Try new sentence</button>
+      </div>
+    </div>
+    <div class="flex-wrapper">
+
+      <div class="wrapper">
+  
+      </div>
+    </div>
+    <button id="revealresult" style="align-self: center">reveal result</button>
+    <p id="result"></p>
+    <script>
+      const wrapper = document.querySelector(".wrapper");
+      const topButtons = document.querySelectorAll(".top-button");
+      const sentence = document.querySelector("#sentence");
+      const translateButton = document.querySelector("#translateButton");
+      const trynewButton = document.querySelector("#trynew");
+      const reveal = document.querySelector("#revealresult");
+      const result = document.querySelector("#result");
+      let elms;
+      let elmsLength;
+      let currentTabIndex = 1;
+      let maxTababale;
+      sentence.focus();
+      async function translate(text) {
+        const apiKey = ""//You api key;
+        const res = await fetch(
+          `https://api-free.deepl.com/v2/translate?auth_key=${apiKey}&text=${encodeURIComponent(
+            text
+          )}&target_lang=de&formality=less`
+        );
+
+        const json = await res.json();
+        return json.translations[0].text.split(" ");
+      }
+
+      document.onkeydown = function (e) {
+        e = e || window.event;
+        if (e.key === "Backspace" && document.activeElement !== sentence) {
+          currentTabIndex = Math.max(1, currentTabIndex - 1);
+          selectInput(currentTabIndex);
+        }
+      };
+
+      translateButton.addEventListener("click",e => {
+        reveal.style.display='inline';
+        translateButton.setAttribute("disabled",true)
+        // testSentenceShort()
+        startNewSentence(sentence.value)
+      })
+
+      trynewButton.addEventListener("click",e => {
+        sentence.removeAttribute("disabled")
+        sentence.value = '';
+        sentence.focus();
+        translateButton.removeAttribute("disabled")
+        wrapper.innerHTML = '';
+        result.style.display = '';
+        reveal.style.display='';
+        setResult([""])
+      })
+
+      reveal.addEventListener("click",_ => {
+        result.style.display = 'block'
+      })
+
+      topButtons.forEach(b => {
+        b.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+        });
+      })
+      
+
+      function selectInput(tabindex) {
+        document.querySelector(`input[tabindex='${tabindex}']`)?.focus();
+      }
+
+      function insertWord(word) {
+        const wordWrapper = document.createElement("div");
+        wordWrapper.classList.add("word-wrapper");
+
+        const revealedLetterIndex = getRandomInt(0, word.length);
+
+        [...word].forEach((letter, i) => {
+          const input = document.createElement("input");
+          input.classList.add("character-input");
+          input.setAttribute("data-letter", letter);
+          input.setAttribute("maxlength", 1);
+          input.setAttribute("type", "text");
+          const isPunctuation = !/[a-zäöüß0-9]/i.test(letter);
+          if (revealedLetterIndex === i || isPunctuation) {
+            insertLetter(input,letter,isPunctuation)
+          }
+          wordWrapper.append(input);
+        });
+
+        wrapper.append(wordWrapper);
+      }
+
+      function insertLetter(input,letter,isPunctuation) {
+        input.setAttribute("disabled", true);
+        input.style.color = 'initial';
+
+        input.value = letter;
+        if (isPunctuation) {
+          input.style.border = "none";
+          input.style.background = "transparent";
+        }
+      }
+
+      
+      
+          const handleInput = (e,elms) => {
+              if (/[a-zäöüß0-9]/i.test(e.target.value)) {
+                currentTabIndex = Math.min(elmsLength + 1, currentTabIndex + 1);
+                selectInput(currentTabIndex);
+              }
+        }
+
+        const handleFocus = e => {
+          if (e.target.value !== "") {
+                e.target.select();
+              }
+              currentTabIndex = +e.target.getAttribute("tabIndex");
+        }
+
+      function setTabIndexes() {
+
+
+        document.querySelectorAll(".wrapper input").forEach(i => {
+          i.removeAttribute("tabIndex")
+          // i.removeEventListener("input",window.getEventListeners(i).input[0].listener)
+          i.removeEventListener("focus",handleFocus)
+       })
+        elms = document.querySelectorAll(".wrapper input:not(:disabled)");
+        elmsLength = elms.length
+        maxTababale = elms.length;
+
+        elms.forEach((input, i) => {
+          input.tabIndex = i + 1;
+        });
+
+        elms.forEach((i) => {
+          i.addEventListener("input", handleInput);
+          i.addEventListener("focus", handleFocus);
+        });
+
+        elms[0].focus();
+      }
+
+      function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+      }
+
+      function getWords() {
+        const words = Array.from(document.querySelectorAll(".word-wrapper"));
+
+        let sentence = "";
+
+        words.forEach((w) => {
+          w.querySelectorAll("input").forEach((i) => {
+            sentence += i.value;
+          });
+
+          sentence += " ";
+        });
+
+        console.log(sentence);
+      }
+
+      function setResult(words) {
+        document.querySelector("#result").textContent = words.join(" ");
+      }
+
+      function revealLetter() {
+        const inputs = Array.from(wrapper.querySelectorAll("input:not(:disabled)")).filter(i => i.value === '');
+        const randomInt = getRandomInt(0,inputs.length)
+        const randomInput = inputs[randomInt];
+        const inputLetter = randomInput.getAttribute("data-letter");
+        insertLetter(randomInput,inputLetter,false)
+        setTabIndexes();
+      }
+
+      function testSentence() {
+        const words = [
+          "Was",
+          "sind",
+          "die",
+          "grundlegendsten",
+          "und",
+          "wichtigsten",
+          "Dinge",
+          "über",
+          "Wissenschaft,",
+          "die",
+          "alle",
+          "Erwachsenen",
+          "wissen",
+          "sollten,",
+          "um",
+          "die",
+          "Welt",
+          "um",
+          "sie",
+          "herum",
+          "besser",
+          "zu",
+          "verstehen?",
+        ];
+
+        words.forEach((w) => insertWord(w));
+        setResult(words);
+        setTabIndexes();
+      }
+
+
+      function testSentenceShort() {
+        const words = [
+          "um",
+          "die",
+          "Welt",
+          "um",
+          "sie",
+          "herum",
+          "besser",
+          "zu",
+          "verstehen?",
+        ];
+
+        words.forEach((w) => insertWord(w));
+        setResult(words);
+        setTabIndexes();
+      }
+      function checkWords() {
+        wrapper.querySelectorAll("input").forEach((i) => {
+          const [value, expectedValue] = [
+            i.value.toLocaleLowerCase(),
+            i.getAttribute("data-letter").toLocaleLowerCase(),
+          ];
+          if (!i.disabled) {
+            if (value !== expectedValue && value !== "") {
+              i.style.borderColor = "red";
+              i.style.color = "red";
+            } else if (value === expectedValue) {
+              i.style.borderColor = "lightgreen";
+              i.style.color = "lightgreen";
+            }
+          }
+        });
+      }
+
+      async function startNewSentence(theSentence) {
+        const words = await translate(theSentence);
+        sentence.setAttribute("disabled",true);
+        words.forEach((w) => insertWord(w));
+        setResult(words);
+        setTabIndexes();
+      }
+
+      // testSentence();
+      // startNewSentence("We are married for 2 years with a 3 year old. We are both 30.")
+    </script>
+  </body>
+</html>
