@@ -111,7 +111,7 @@ body {
 }
 
 /* CSS */
-.button-9 {
+.btn {
     appearance: button;
     backface-visibility: hidden;
     background-color: hsl(231, 90%, 61%);
@@ -140,11 +140,11 @@ body {
     touch-action: manipulation;
 }
 
-.button-9:disabled {
+.btn:disabled {
     cursor: default;
 }
 
-.button-9:focus {
+.btn:focus {
     box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
         rgba(50, 50, 93, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
         rgba(50, 151, 211, 0.3) 0 0 0 4px;
