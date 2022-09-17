@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="top-buttons-container">
+
+    </div>
+    <div class="textarea-wrapper">
+      <textarea
+        id="sentence"
+        class="tinput"
+        cols="30"
+        placeholder="Type sentence..."
+        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+      ></textarea>
+      <div class="button-wrapper">
+        <button
+          id="translateButton"
+          class="button-9"
+        >
+          Translate
+        </button>
+        <button
+          id="trynew"
+          class="button-9"
+        >
+          Try new sentence
+        </button>
+        <button class="top-button button-9" onclick="checkWords()">Check</button>
+        <button class="top-button button-9" onclick="revealLetter()">
+          Reveal Random Letter
+        </button>
+      </div>
+    </div>
+    <div class="flex-wrapper">
+      <div class="wrapper"></div>
+    </div>
+    <button id="revealresult" class="button-9" style="align-self: center">reveal result</button>
+    <p id="result"></p>
+  </body>
+</html>

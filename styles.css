@@ -1,0 +1,151 @@
+:root {
+    --text-color: #fff;
+}
+
+body {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 4rem 2rem;
+    background-color: hsl(231, 90%, 40%);
+    font-family: sans-serif;
+}
+
+.button-wrapper {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.tinput {
+    color: var(--text-color);
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--text-color);
+
+    opacity: .5;
+    /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: var(--text-color);
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: var(--text-color);
+}
+
+.character-input {
+    background: transparent;
+    width: 1.8ch;
+    padding: 5px 0;
+    text-align: center;
+    font-size: 3rem;
+    border: 0;
+    color: var(--text-color);
+    border-bottom: 2px solid black;
+    outline: none;
+}
+
+.top-button {
+    font-family: inherit;
+    font-size: 2rem;
+}
+
+.top-buttons-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.5rem;
+}
+
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: auto;
+    padding: 4rem 0;
+    gap: 2rem;
+}
+
+.flex-wrapper {
+    display: flex;
+}
+
+.word-wrapper {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#sentence {
+    background: transparent;
+    border: none;
+    text-align: center;
+    border-bottom: 2px solid rgba(0, 0, 0, .2);
+    font-size: 2rem;
+    outline: none;
+    resize: none;
+}
+
+#result {
+    font-size: 3rem;
+    color: var(--text-color);
+    display: none;
+    text-align: center;
+}
+
+.textarea-wrapper {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+}
+
+#revealresult {
+    display: none;
+}
+
+/* CSS */
+.button-9 {
+    appearance: button;
+    backface-visibility: hidden;
+    background-color: hsl(231, 90%, 61%);
+    border-radius: 6px;
+    border-width: 0;
+    box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
+        rgba(50, 50, 93, 0.1) 0 2px 5px 0, rgba(0, 0, 0, 0.07) 0 1px 1px 0;
+    box-sizing: border-box;
+    color: var(--text-color);
+    cursor: pointer;
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto,
+        "Helvetica Neue", Ubuntu, sans-serif;
+    font-size: 100%;
+    height: 44px;
+    line-height: 1.15;
+    outline: none;
+    overflow: hidden;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transform: translateZ(0);
+    transition: all 0.2s, box-shadow 0.08s ease-in;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-9:disabled {
+    cursor: default;
+}
+
+.button-9:focus {
+    box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
+        rgba(50, 50, 93, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
+        rgba(50, 151, 211, 0.3) 0 0 0 4px;
+}
