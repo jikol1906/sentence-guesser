@@ -1,5 +1,7 @@
 :root {
     --text-color: #fff;
+    --primary-color: hsl(201, 100%, 17%);
+    --secondary-color: hsl(201, 100%, 27%);
 }
 
 body {
@@ -8,7 +10,7 @@ body {
     flex-direction: column;
     gap: 1rem;
     padding: 4rem 2rem;
-    background-color: hsl(231, 90%, 40%);
+    background-color: var(--primary-color);
     font-family: sans-serif;
 }
 
@@ -116,7 +118,7 @@ body {
 .btn {
     appearance: button;
     backface-visibility: hidden;
-    background-color: hsl(231, 90%, 61%);
+    background-color: var(--secondary-color);
     border-radius: 6px;
     border-width: 0;
     box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
