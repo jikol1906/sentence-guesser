@@ -14,7 +14,7 @@ guesser = {}
 guesser.apiKey = ''; // your DeepL api key here
 ```
 
-This workflow prevents you from having to delete your API key from the `script.js` file before committin gcode.
+This workflow prevents you from having to delete your API key from the `script.js` file before committing code.
 
 ## Usage
 Open `index.html` in your browser.
