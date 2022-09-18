@@ -15,6 +15,7 @@ body {
 .button-wrapper {
     display: grid;
     grid-auto-flow: column;
+    grid-auto-columns: 1fr;
     justify-content: center;
     gap: 2rem;
 }
@@ -102,6 +103,7 @@ body {
 
 .textarea-wrapper {
     display: flex;
+    align-items: center;
     gap: 2rem;
     flex-direction: column;
 }
