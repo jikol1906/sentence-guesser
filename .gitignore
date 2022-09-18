@@ -1,1 +1,27 @@
+# System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# Caches and temp files
+temp
+tmp
+_tmp
+.eslintcache
+*.sass-cache
+
+# External libraries/packages/plugins
+node_modules
+
+# --------------------------
+
+# Editor
 .vscode/settings.json
+
+# Secrets
+secret.js

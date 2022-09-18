@@ -11,7 +11,7 @@ let currentTabIndex = 1;
 let maxTababale;
 sentence.focus();
 async function translate(text) {
-  const apiKey = ""//Your Deepl api key;
+  const apiKey = guesser.apiKey //Your Deepl api key;
   const res = await fetch(
     `https://api-free.deepl.com/v2/translate?auth_key=${apiKey}&text=${encodeURIComponent(
       text
