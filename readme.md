@@ -17,7 +17,7 @@ guesser.apiKey = ''; // your DeepL api key here
 This workflow prevents you from having to delete your API key from the `script.js` file before committing code.
 
 ## Usage
-Open `test.html` in your browser.
+Open `index.html` in your browser.
 
 Begin by typing an English sentence in the input field.
 
