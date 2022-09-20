@@ -25,10 +25,17 @@ async function translate(text) {
 document.onkeydown = function (e) {
   e = e || window.event;
   if (e.key === "Backspace" && document.activeElement !== sentence) {
-    currentTabIndex = Math.max(1, currentTabIndex - 1);
-    selectInput(currentTabIndex);
-  }
+    previousInput()
+  } 
+
 };
+
+function previousInput() {
+  currentTabIndex = Math.max(1, currentTabIndex - 1);
+  selectInput(currentTabIndex);
+}
+
+
 
 translateButton.addEventListener("click", async (e) => {
   await startNewSentence(sentence.value);
