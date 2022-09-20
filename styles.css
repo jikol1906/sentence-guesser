@@ -52,7 +52,7 @@ body {
     font-size: 3rem;
     border: 0;
     color: var(--text-color);
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--text-color);
     outline: none;
 }
 
