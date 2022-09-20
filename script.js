@@ -26,7 +26,11 @@ document.onkeydown = function (e) {
   e = e || window.event;
   if (e.key === "Backspace" && document.activeElement !== sentence) {
     previousInput()
-  } 
+  } else if (e.key === "ArrowRight") {
+    nextInput()
+  } else if (e.key === "ArrowLeft") {
+    previousInput()
+  }
 
 };
 
@@ -35,7 +39,10 @@ function previousInput() {
   selectInput(currentTabIndex);
 }
 
-
+function nextInput() {
+  currentTabIndex = Math.min(elms.length, currentTabIndex + 1);
+  selectInput(currentTabIndex);
+}
 
 translateButton.addEventListener("click", async (e) => {
   await startNewSentence(sentence.value);
